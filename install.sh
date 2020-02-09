@@ -33,9 +33,11 @@ else
     passwd ${USERNAME}
 fi
 
-su ${USERNAME}
 yay -Syy termite xclip
-git clone -b "$BRANCH" --depth 1 "${GITRESP}" "${HOME}/Dotfiles" >/dev/null 2>&1 &&
-cd $HOME/Dotfiles
-bash install.sh
+
+dir=$(mktemp -d)
+git clone -b "$BRANCH" --depth 1 "${GITRESP}" "${dir}/Dotfiles" >/dev/null 2>&1 &&
+mv ${dir}/Dotfiles /home/${USERNAME}/Dotfiles
+# bash install.sh
 # i3-msg exit
+echo "Install success !! must login user cd Dotfiles exec install.sh"
