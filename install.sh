@@ -6,17 +6,16 @@ PASSWD="blackarch"
 
 ping -c 1 1.1.1.1 >/dev/null || exit
 
-DISKPART=`lsblk -nrpo "name,type" | awk '$2=="part"{print $1}'`
-# echo ${DISPART}
-# exit 5
+DISKPARTS=$(lsblk -nrpo "name,type,mountpoint" | awk '$2=="part"&&length($3)==0{print $1}')
 
-if [ ! -z ${DISPART} ]
-    echo "Find the disk ${DISPART} and mount on home."
-    mount ${DISKPART} /home >/dev/null || exit
-else
-    echo "Not found any disk. exit !"
-    exit
-fi
+[[ ! -z "${DISKPARTS}" ]] || exit
+
+for DISK in ${DISKPARTS}
+do
+    echo "Find the disk ${DISK} and mount on home."
+    mount ${DISk} /home >/dev/null || exit
+    break
+done
 
 for USERNAME in `ls /home/ | grep -v 'lost+found'`
 do
