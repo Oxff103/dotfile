@@ -33,7 +33,7 @@ else
     passwd ${USERNAME}
 fi
 
-yay -Syy termite xclip
+# yay -Syy termite xclip
 
 dir=$(mktemp -d)
 git clone -b "$BRANCH" --depth 1 "${GITRESP}" "${dir}/Dotfiles" >/dev/null 2>&1 &&
